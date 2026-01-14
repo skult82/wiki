@@ -1,0 +1,21 @@
+name: Wiki to GitHub Pages
+
+on:
+  gollum: # Wiki가 생성되거나 편집될 때 실행
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Wiki
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki-content
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: wiki-content # Wiki 내용이 담긴 폴더
+          branch: gh-pages # Pages를 배포할 브랜치
